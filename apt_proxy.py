@@ -2,6 +2,7 @@
 
 # sudo apt_proxy.py (set|unset|get) host port
 # host and port are required only for 'set'
+# get is deprecated
 
 import os
 import re

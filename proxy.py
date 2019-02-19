@@ -22,6 +22,48 @@ def apt_proxy(sudo_password, option, profile = ""):
     output, sudo_prompt = p.communicate(sudo_password + '\n')  
     return output, sudo_prompt
 
+def get_apt_proxy():
+    apt_config = {
+        "enabled": False,
+        "ftp":{
+            "host":"",
+            "port":""
+        },
+        "http":{
+            "host":"",
+            "port":""
+        },
+        "https":{
+            "host":"",
+            "port":""
+        }
+    }
+
+    if not os.path.isdir('/etc/apt/apt.conf.d'):
+        os.makedirs('/etc/apt/apt.conf.d')
+
+    proxyConfPath = '/etc/apt/apt.conf.d/proxy.conf'
+    if( os.path.isfile(proxyConfPath) ):
+        with open(proxyConfPath) as fh:
+            conf = fh.read()
+            conf = conf.strip()
+            # print(conf)
+            # return
+            if(conf == ''):
+                apt_config["enabled"] = False
+                return
+            else:
+                apt_config["enabled"] = True
+                http = re.compile(r'Acquire::http::Proxy \"(.*):(\d+)\"')
+                https = re.compile(r'Acquire::https::Proxy \"(.*):(\d+)\"')
+                ftp = re.compile(r'Acquire::ftp::Proxy \"(.*):(\d+)\"')
+                apt_config["http"]["host"],apt_config["http"]["port"] = http.findall(conf)[0]
+                apt_config["https"]["host"],apt_config["https"]["port"] = https.findall(conf)[0]
+                apt_config["ftp"]["host"],apt_config["ftp"]["port"] = ftp.findall(conf)[0]
+                return apt_config
+    else:
+        return "no apt proxy file found"
+
 # GIT PROXY
 
 # TODO
@@ -46,7 +88,9 @@ def set_proxy_mode(Mode):
 
 
 def get_proxy_mode():
-    return os.popen("gsettings get org.gnome.system.proxy mode").read().strip()
+    mode = os.popen("gsettings get org.gnome.system.proxy mode").read().strip()
+    mode = mode[1:-1]
+    return mode
 
 
 # CHANGE SYSTEM_WIDE PROXY
