@@ -17,8 +17,8 @@ from subprocess import Popen, PIPE
 # unset apt proxy
 # set different proxy for http, https, ftp
 
-def apt_proxy(sudo_password, option, host = "", port = ""):
-    p = Popen(['sudo', '-S', './apt_proxy.py', option, host, port], stdin=PIPE, stderr=PIPE, stdout= PIPE, universal_newlines=True)
+def apt_proxy(sudo_password, option, profile = ""):
+    p = Popen(['sudo', '-S', './apt_proxy.py', option, profile], stdin=PIPE, stderr=PIPE, stdout= PIPE, universal_newlines=True)
     output, sudo_prompt = p.communicate(sudo_password + '\n')  
     return output, sudo_prompt
 

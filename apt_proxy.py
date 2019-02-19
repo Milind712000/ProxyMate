@@ -6,17 +6,27 @@
 import os
 import re
 import sys
+import json
 
-def set_apt_proxy(Host,Port):
+def set_apt_proxy(profile):
+    profilePath = "./profiles/"+profile+".json"
+    config = ""
+    if(os.path.isfile(profilePath)):
+        with open(profilePath) as fh:
+            config = json.load(fh)
+    else:
+        print("profile not found")
+        return
+    
     if not ( os.path.exists('/etc/apt/apt.conf.d') and os.path.isdir('/etc/apt/apt.conf.d') ):
         os.makedirs('/etc/apt/apt.conf.d')
 
     os.chdir('/etc/apt/apt.conf.d')
-
+    config = config["apt"]
     with open('proxy.conf', 'w') as fh:
-        fh.write('Acquire::http::Proxy \"{host}:{port}\";\n'.format(host = Host, port = Port))
-        fh.write('Acquire::https::Proxy \"{host}:{port}\";\n'.format(host = Host, port = Port))
-        fh.write('Acquire::ftp::Proxy \"{host}:{port}\";\n'.format(host = Host, port = Port))
+        fh.write('Acquire::http::Proxy \"{host}:{port}\";\n'.format(host = config["http"]["host"], port = config["http"]["port"]))
+        fh.write('Acquire::https::Proxy \"{host}:{port}\";\n'.format(host = config["https"]["host"], port = config["https"]["port"]))
+        fh.write('Acquire::ftp::Proxy \"{host}:{port}\";\n'.format(host = config["ftp"]["host"], port = config["ftp"]["port"]))
 
 def get_apt_proxy():
     Host = Proxy = ""
@@ -47,14 +57,13 @@ def unset_apt_proxy():
     with open('proxy.conf', 'w') as fh:
         fh.write('\n')
 
-option = host = port = ""
+option = profile = ""
 option = sys.argv[1]
 if option == "set":
-    host = sys.argv[2]
-    port = sys.argv[3]
+    profile = sys.argv[2]
 
 if option == "set":
-    set_apt_proxy(host,port)
+    set_apt_proxy(profile)
 elif option == "unset":
     unset_apt_proxy()
 elif option == "get":
