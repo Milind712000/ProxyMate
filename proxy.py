@@ -52,7 +52,7 @@ def get_apt_proxy():
             # return
             if(conf == ''):
                 apt_config["enabled"] = False
-                return
+                return apt_config
             else:
                 apt_config["enabled"] = True
                 http = re.compile(r'Acquire::http::Proxy \"(.*):(\d+)\"')
@@ -197,6 +197,8 @@ def setProfile(profilePath, sudo_password = ""):
     if(config["system"]["enabled"]):
         set_autoconfig_url(config["system"]["url"])
         set_manual_proxy(config["system"]["host"], config["system"]["port"])
+    else:
+        set_proxy_mode("none")
     
     if(config["apt"]["enabled"]):
         apt_proxy(sudo_password, "set", profilePath)

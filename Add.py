@@ -136,6 +136,9 @@ def Add():
     config["system"]["host"] = sys_host.get()
     config["system"]["port"] = sys_port.get()
 
+    if(config["system"]["mode"] == "none"):
+        config["system"]["enabled"] = False
+
     config["apt"]["enabled"] = bool(apt_enabled.get())
 
     config["apt"]["http"]["host"] = apt_http_host.get()

@@ -1,4 +1,5 @@
 import tkinter as tk
+import tkinter.messagebox
 import os
 import proxy
 
@@ -25,9 +26,11 @@ sudo_password = tk.Entry(frame, show = "*")
 sudo_password.grid(row = 1, column = 1)
 
 def setProfile():
-    profilePath = "./profiles" + selectedProfile.get() + ".json"
+    profilePath = "./profiles/" + selectedProfile.get() + ".json"
     psk = sudo_password.get()
     proxy.setProfile(profilePath, psk)
+    tk.messagebox.showinfo('Alert', ("profile was activated" ))
+
 
 btn4 = tk.Button(root, text = "SET", fg = "green", bg = "black", font = ("Arial Bold", 15), command = setProfile )
 btn4.pack(side = "bottom", fill="x")
