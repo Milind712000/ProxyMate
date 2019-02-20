@@ -108,7 +108,7 @@ def Add():
             "mode":"auto|none|manual",
             "host":"",
             "port":"",
-            "autoConfigUrl":""
+            "url":""
         },
         "apt":{
             "enabled":False,

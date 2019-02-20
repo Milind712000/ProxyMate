@@ -1,6 +1,7 @@
 import os
 import re
 from subprocess import Popen, PIPE
+import json
 
 # GUIDELINES
 # dont run this whole script with root privileges
@@ -17,8 +18,8 @@ from subprocess import Popen, PIPE
 # unset apt proxy
 # set different proxy for http, https, ftp
 
-def apt_proxy(sudo_password, option, profile = ""):
-    p = Popen(['sudo', '-S', './apt_proxy.py', option, profile], stdin=PIPE, stderr=PIPE, stdout= PIPE, universal_newlines=True)
+def apt_proxy(sudo_password, option, profilePath = ""):
+    p = Popen(['sudo', '-S', './apt_proxy.py', option, profilePath], stdin=PIPE, stderr=PIPE, stdout= PIPE, universal_newlines=True)
     output, sudo_prompt = p.communicate(sudo_password + '\n')  
     return output, sudo_prompt
 
@@ -102,7 +103,7 @@ def set_autoconfig_url(URL):
     # os.system("./set_autoconfig_url.sh {url}".format(url = URL))
 
 def get_autoconfig_url():
-    return os.popen("gsettings get org.gnome.system.proxy autoconfig-url").read().strip()
+    return os.popen("gsettings get org.gnome.system.proxy autoconfig-url").read().strip()[1:-1]
 
 # MANUAL
 
@@ -122,7 +123,7 @@ def set_manual_proxy(Host, Port):
 def get_manual_proxy():
     Host = os.popen("gsettings get org.gnome.system.proxy.http host").read().strip()
     Port = os.popen("gsettings get org.gnome.system.proxy.http port").read().strip()
-    return Host, Port
+    return Host[1:-1], Port
 
 
 # GUI METHODS
@@ -133,44 +134,71 @@ def getInfo():
         "git":{
             "enabled": False,
             "host": "",
-            "port": "8080"
+            "port": ""
         },
         "system":{
             "enabled":False,
-            "mode":"manual",
-            "host":"1",
-            "port":"8080"
+            "mode":"",
+            "host":"",
+            "port":"",
+            "url":""
         },
         "apt":{
             "enabled":False,
             "ftp":{
                 "host":"",
-                "port":"8080"
+                "port":""
             },
             "http":{
                 "host":"",
-                "port":"8080"
+                "port":""
             },
             "https":{
                 "host":"",
-                "port":"8080"
+                "port":""
             }
         }
     }
+    
     # apt
     config["apt"] = get_apt_proxy()
+    
     # git
     git = get_git_proxy()
     if(git == ""):
         config["git"]["enabled"] = False
     else:
-        config["git"]["enabled"] = False
+        config["git"]["enabled"] = True
         config["git"]["host"], config["git"]["port"] = git.split(":")
+    
     # system
     config["system"]["mode"] = get_proxy_mode()
+    
     if (config["system"]["mode"] == 'none'):
-        config["system"]["enabled"] == False
+        config["system"]["enabled"] = False
     else:
-        config["system"]["enabled"] == True
-        config["system"]["host"], config["system"]["port"] == get_manual_proxy()
+        config["system"]["enabled"] = True
 
+    config["system"]["host"], config["system"]["port"] = get_manual_proxy()
+    config["system"]["url"] = get_autoconfig_url()
+
+    return config
+
+def setProfile(profilePath, sudo_password = ""):
+    with open(profilePath) as fh:
+        config = json.load(fh)
+    
+    if(config["git"]["enabled"]):
+        set_git_proxy(config["git"]["host"], config["git"]["port"])
+    else:
+        unset_git_proxy()
+
+    set_proxy_mode(config["system"]["mode"])
+    if(config["system"]["enabled"]):
+        set_autoconfig_url(config["system"]["url"])
+        set_manual_proxy(config["system"]["host"], config["system"]["port"])
+    
+    if(config["apt"]["enabled"]):
+        apt_proxy(sudo_password, "set", profilePath)
+    else:
+        apt_proxy(sudo_password,"unset")

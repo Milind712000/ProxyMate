@@ -9,8 +9,7 @@ import re
 import sys
 import json
 
-def set_apt_proxy(profile):
-    profilePath = "./profiles/"+profile+".json"
+def set_apt_proxy(profilePath):
     config = ""
     if(os.path.isfile(profilePath)):
         with open(profilePath) as fh:
@@ -58,13 +57,13 @@ def unset_apt_proxy():
     with open('proxy.conf', 'w') as fh:
         fh.write('\n')
 
-option = profile = ""
+option = profilePath = ""
 option = sys.argv[1]
 if option == "set":
-    profile = sys.argv[2]
+    profilePath = sys.argv[2]
 
 if option == "set":
-    set_apt_proxy(profile)
+    set_apt_proxy(profilePath)
 elif option == "unset":
     unset_apt_proxy()
 elif option == "get":
