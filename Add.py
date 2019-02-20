@@ -151,7 +151,7 @@ def Add():
     #check and see that profile name has no spaces or it will cause problems in sudo apt_proxy.py argument list
 
     with open("./profiles/"+name+".json", "w") as fh:
-        json.dump(config, fh)
+        json.dump(config, fh, indent=4)
 
     tk.messagebox.showinfo('Alert', ("profile " + name + " was saved" ))
 
