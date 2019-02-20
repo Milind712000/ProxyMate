@@ -15,9 +15,8 @@ class Display:
 
     def updateConfig(self):
         # complete this
-        with open("./profiles/Hostel.json") as fh:
-            self.config = json.load(fh)
-        self.profileName = "Hostel"
+        self.config = proxy.getInfo()
+        self.profileName = "Kill Me Now"
         
     def sysProx(self, window, config):
         sysFrame = tk.Frame(window)
@@ -29,7 +28,7 @@ class Display:
                 tk.Label(sysFrame, text=("Host : "+config["host"]) ).pack(fill="x")
                 tk.Label(sysFrame, text=("Port : "+config["port"]) ).pack(fill="x")
             elif(config['mode'] == 'auto'):
-                tk.Label(sysFrame, text=("autoconfig-url : "+config["autoConfigUrl"]) ).pack(fill="x")
+                tk.Label(sysFrame, text=("autoconfig-url : "+config["url"]) ).pack(fill="x")
 
     def aptProx(self, window, config):
         aptFrame = tk.Frame(window)
