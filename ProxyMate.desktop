@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=ProxyMate
+GenericName=Sticky Notes
+Version=1.0
+Comment=Create profiles with custom proxy settings and switch between them without any hassle.
+Exec=/home/milind/Documents/projects/ProxyMate/launch
+Path=/home/milind/Documents/projects/ProxyMate
+# Icon=/usr/share/icons/Humanity/apps/32/access.svg
+Terminal=false
+Type=Application
+Categories=Utility;

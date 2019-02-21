@@ -1,3 +1,5 @@
+#! /usr/bin/python3
+
 import tkinter as tk
 import proxy
 import json
@@ -73,7 +75,7 @@ class Display:
 
 root = tk.Tk()
 root.title("ProxyMate")
-root.geometry('400x600+800+200')
+root.geometry('400x700+100+100')
 
 
 bottom_frame = tk.Frame(root)
@@ -83,5 +85,7 @@ Info = Display(bottom_frame)
 
 btn4 = tk.Button(bottom_frame, text = "Refresh", fg = "green", bg = "black", font = ("Arial Bold", 15), command = Info.refresh )
 btn4.pack(side = "bottom", fill="x")
+
+Info.refresh()
 
 root.mainloop()

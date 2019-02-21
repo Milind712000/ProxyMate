@@ -1,3 +1,5 @@
+#! /usr/bin/python3
+
 import tkinter as tk
 import tkinter.messagebox
 import os
@@ -8,7 +10,7 @@ profiles = [x[:-5] for x in profiles if x[-5:] == ".json"]
 
 root = tk.Tk()
 root.title("ProxyMate")
-root.geometry('600x300+600+300')
+root.geometry('600x700+500+100')
 
 
 frame = tk.Frame(root)
