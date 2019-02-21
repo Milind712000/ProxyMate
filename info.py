@@ -21,7 +21,7 @@ class Display:
     def sysProx(self, window, config):
         sysFrame = tk.Frame(window)
         sysFrame.pack(fill="x")
-        tk.Label(sysFrame, text= ("System Proxy : "+str(config["enabled"]) ) ).pack(fill="x")
+        tk.Label(sysFrame, text= ("System Proxy : "+str(config["enabled"]) ), font = ('arial',20,'bold') ).pack(fill="x")
         tk.Label(sysFrame, text= ("Mode : "+config["mode"] ) ).pack(fill="x")
         if(config["enabled"]):
             if(config['mode'] == 'manual'):
@@ -33,7 +33,7 @@ class Display:
     def aptProx(self, window, config):
         aptFrame = tk.Frame(window)
         aptFrame.pack(fill="x")
-        tk.Label(aptFrame, text= ("apt Proxy : "+str(config["enabled"]) ) ).pack(fill="x")
+        tk.Label(aptFrame, text= ("apt Proxy : "+str(config["enabled"]) ), font = ('arial',20,'bold') ).pack(fill="x")
         if(config["enabled"]):
                 http = config["http"]
                 tk.Label(aptFrame, text="HTTP :" ).pack(fill="x")
@@ -51,7 +51,7 @@ class Display:
     def gitProx(self, window, config):
         gitProx = tk.Frame(window)
         gitProx.pack(fill="x")
-        tk.Label(gitProx, text= ("git Proxy : "+str(config["enabled"]) ) ).pack(fill="x")
+        tk.Label(gitProx, text= ("git Proxy : "+str(config["enabled"]) ), font = ('arial',20,'bold') ).pack(fill="x")
         if(config["enabled"]):
                 tk.Label(gitProx, text=("Host : "+config["host"]) ).pack(fill="x")
                 tk.Label(gitProx, text=("Port : "+config["port"]) ).pack(fill="x")
@@ -66,7 +66,7 @@ class Display:
         self.InnerFrame = tk.Frame(self.InfoFrame)
         self.InnerFrame.pack(side = "top", fill="x")
         
-        tk.Label(self.InnerFrame, text=self.profileName).pack(side="top",fill="x")
+        tk.Label(self.InnerFrame, text=self.profileName, font = ('arial',30,'bold'), fg = "red" ).pack(side="top",fill="x")
         self.sysProx(self.InnerFrame, self.config['system'])
         self.aptProx(self.InnerFrame, self.config['apt'])
         self.gitProx(self.InnerFrame, self.config['git'])

@@ -9,7 +9,7 @@ root = tk.Tk()
 root.title("ProxyMate")
 root.geometry('400x600+800+200')
 
-tk.Label(root, text = "Profile Name").pack()
+tk.Label(root, text = "Profile Name", font = ('arial',20,'bold')).pack()
 profileName = tk.Entry(root)
 profileName.pack()
 
@@ -19,7 +19,7 @@ addFrame.pack(expand = True, fill = "x")
 
 # apt proxy
 
-tk.Label(addFrame, text = "Apt Proxy :").grid(row = 0, column = 0)
+tk.Label(addFrame, text = "Apt Proxy :", font = ('arial',20,'bold')).grid(row = 0, column = 0)
 apt_enabled = tk.BooleanVar()
 tk.Checkbutton(addFrame, text="enabled", var = apt_enabled).grid(row = 1, column = 0)
 
@@ -58,7 +58,7 @@ apt_ftp_port.grid(row = 3, column = 1)
 
 # systemProxy
 
-tk.Label(addFrame, text = "System Proxy :").grid(row = 5, column = 0)
+tk.Label(addFrame, text = "System Proxy :", font = ('arial',20,'bold')).grid(row = 5, column = 0)
 sys_enabled = tk.BooleanVar()
 tk.Checkbutton(addFrame, text="enabled", var = sys_enabled).grid(row = 6, column = 0)
 sys_mode = tk.StringVar()
@@ -82,7 +82,7 @@ sys_url.grid(row = 4, column = 1)
 
 # git
 
-tk.Label(addFrame, text = "Git Proxy :").grid(row = 8, column = 0)
+tk.Label(addFrame, text = "Git Proxy :", font = ('arial',20,'bold')).grid(row = 8, column = 0)
 git_enabled = tk.BooleanVar()
 tk.Checkbutton(addFrame, text="enabled", var = git_enabled).grid(row = 9, column = 0)
 
