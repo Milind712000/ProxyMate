@@ -7,7 +7,7 @@ import json
 
 root = tk.Tk()
 root.title("ProxyMate")
-root.geometry('400x600+800+200')
+root.geometry('500x700+800+200')
 
 tk.Label(root, text = "Profile Name", font = ('arial',20,'bold')).pack()
 profileName = tk.Entry(root)
