@@ -63,7 +63,8 @@ def get_apt_proxy():
                 apt_config["ftp"]["host"],apt_config["ftp"]["port"] = ftp.findall(conf)[0]
                 return apt_config
     else:
-        return "no apt proxy file found"
+        # print("no apt proxy file found")
+        return apt_config
 
 # GIT PROXY
 

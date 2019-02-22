@@ -75,7 +75,7 @@ class Display:
 
 root = tk.Tk()
 root.title("ProxyMate")
-root.geometry('400x700+100+100')
+# root.geometry('400x700+100+100')
 
 
 bottom_frame = tk.Frame(root)
