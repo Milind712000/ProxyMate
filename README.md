@@ -7,4 +7,4 @@ Create profiles with custom proxy settings and switch between them without any h
 
 ###Install ProxyMate  
 
-    $ bash install.sh
+    $ python3 install.py

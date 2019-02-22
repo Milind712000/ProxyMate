@@ -1,4 +1,2 @@
-python3 info.py &
-python3 change.py &
-python3 Add.py &
+python3 Main.py &
 exit 0

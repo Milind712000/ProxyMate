@@ -3,6 +3,7 @@
 import os
 
 os.system("chmod +x apt_proxy.py")
+os.system("chmod +x launch")
 
 # fix path in .desktop files
 Path = os.getcwd()
