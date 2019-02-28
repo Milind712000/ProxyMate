@@ -8,3 +8,6 @@ Create profiles with custom proxy settings and switch between them without any h
 ### Install ProxyMate  
 
     $ python3 install.py
+
+  
+Now you can launch the program from Dash
