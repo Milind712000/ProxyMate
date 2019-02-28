@@ -9,6 +9,6 @@ Create profiles with custom proxy settings and switch between them without any h
 
     $ python3 install.py
 
-Note: You need to remove any previous apt proxy cnfiurations before using this
+Note: You need to remove any previous apt proxy configurations before using this
 
 Now you can launch the program from Dash
